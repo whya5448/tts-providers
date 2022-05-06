@@ -17,6 +17,12 @@ class KakaoTTSService(
 ) : TTSProvider {
     companion object {
         internal val ID: String = "kakao"
+        @JvmStatic
+        fun main(args: Array<String>) {
+            val kakaoTTSService = KakaoTTSService()
+            val synthesize = kakaoTTSService.synthesize(kakaoTTSService.getVoices().random().getId(), ".")
+            println(synthesize)
+        }
     }
 
     private val client: KakaoClient
@@ -49,6 +55,10 @@ class KakaoTTSService(
     override fun synthesize(voice: String, text: String): Response {
         val response = client.synthesize(appKey, SSMLRequest(voice, text))
         val status = response.status()
+
+        if (status == 204) {
+            return Response.data(AudioFormat.NONE, byteArrayOf())
+        }
 
         if (status != 200) {
             return Response.error("$status $response")
