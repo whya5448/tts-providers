@@ -15,10 +15,11 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val feignVersion = "11.+" // 11.8
-val slf4jVersion = "1.7.+" // 1.7.36
-val log4jVersion = "2.17.+" // 2.17.2
-val jacksonVersion = "2.13.+" // 2.13.2.2
+val feignVersion = "11.8"
+val slf4jVersion = "1.7.36"
+val log4jVersion = "2.17.2"
+val jacksonVersion = "2.13.2.2"
+val jacksonModuleKotlinVersion = "2.13.2"
 
 dependencies {
     // tts-core
@@ -26,7 +27,7 @@ dependencies {
 
     // jackson
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonModuleKotlinVersion")
 
     // feign
     implementation("io.github.openfeign:feign-core:$feignVersion")
