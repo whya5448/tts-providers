@@ -23,7 +23,7 @@ val jacksonModuleKotlinVersion = "2.13.2"
 
 dependencies {
     // tts-core
-    implementation("com.github.Whya5448:tts-core:9237347e65")
+    implementation("com.github.Whya5448:tts-core:1.0.0")
 
     // jackson
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
