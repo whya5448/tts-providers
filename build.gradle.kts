@@ -71,8 +71,11 @@ tasks.withType<KotlinCompile> {
     }
 }
 
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 java {
-    withJavadocJar()
     withSourcesJar()
 }
 
