@@ -4,5 +4,5 @@ module metalscraps.tts.providers {
     requires com.fasterxml.jackson.kotlin;
     requires java.xml.bind;
 
-    exports org.metalscraps.discord.bot.tts.providers;
+    exports org.metalscraps.discord.tts.providers;
 }

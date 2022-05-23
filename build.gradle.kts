@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    idea
     java
     `java-library`
     `maven-publish`
@@ -18,8 +19,8 @@ repositories {
 val feignVersion = "11.8"
 val slf4jVersion = "1.7.36"
 val log4jVersion = "2.17.2"
-val jacksonVersion = "2.13.2.2"
-val jacksonModuleKotlinVersion = "2.13.2"
+val jacksonVersion = "2.13.2.3"
+val jacksonModuleKotlinVersion = "2.13.3"
 
 dependencies {
     // tts-core
@@ -36,7 +37,7 @@ dependencies {
     implementation("io.github.openfeign:feign-jaxb:$feignVersion")
 
     // jaxb
-    implementation("javax.xml.bind:jaxb-api:2.3.1")
+    implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     implementation("org.glassfish.jaxb:jaxb-runtime:2.4.0-b180830.0438")
 
     // logging
@@ -45,6 +46,11 @@ dependencies {
     testImplementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
 
     testImplementation(kotlin("test"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.5.1")
+    testImplementation("org.mockito:mockito-inline:4.5.1")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
 
 tasks.test {
@@ -55,10 +61,18 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
 
     val compileJava by tasks.compileJava
-    destinationDirectory.set(compileJava.destinationDirectory)
+    //destinationDirectory.set(compileJava.destinationDirectory)
+
+    doLast {
+        copy {
+            from(destinationDirectory)
+            into(compileJava.destinationDirectory)
+        }
+    }
 }
 
 java {
+    withJavadocJar()
     withSourcesJar()
 }
 
