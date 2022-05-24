@@ -1,8 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    idea
-    java
     `java-library`
     `maven-publish`
     kotlin("jvm") version "1.6.20"
@@ -58,26 +56,16 @@ tasks.test {
     useJUnitPlatform()
 }
 
+val compileKotlin: KotlinCompile by tasks
+val compileJava: JavaCompile by tasks
+compileJava.destinationDirectory.set(compileKotlin.destinationDirectory)
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
-
-    val compileJava by tasks.compileJava
-    //destinationDirectory.set(compileJava.destinationDirectory)
-
-    doLast {
-        copy {
-            from(destinationDirectory)
-            into(compileJava.destinationDirectory)
-        }
-    }
 }
 
 tasks.withType<Test> {
     systemProperty("feign.client.config.default.loggerLevel", "FULL")
-}
-
-tasks.withType<Jar> {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 java {
