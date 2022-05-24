@@ -69,6 +69,7 @@ tasks.withType<Test> {
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_17
     withSourcesJar()
 }
 
