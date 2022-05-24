@@ -1,6 +1,6 @@
 package org.metalscraps.discord.tts.providers.kakao
 
-import org.metalscraps.discord.bot.tts.core.Voice
+import org.metalscraps.discord.tts.core.Voice
 
 enum class KakaoVoice(
     private val id: String,

@@ -1,10 +1,10 @@
 package org.metalscraps.discord.tts.providers.random
 
 import org.jetbrains.annotations.NotNull
-import org.metalscraps.discord.bot.tts.core.DefaultTTSService
-import org.metalscraps.discord.bot.tts.core.Response
-import org.metalscraps.discord.bot.tts.core.TTSProvider
-import org.metalscraps.discord.bot.tts.core.Voice
+import org.metalscraps.discord.tts.core.DefaultTTSService
+import org.metalscraps.discord.tts.core.Response
+import org.metalscraps.discord.tts.core.TTSProvider
+import org.metalscraps.discord.tts.core.Voice
 
 class RandomTTSService(private val proxy: DefaultTTSService) : TTSProvider {
     private val voice = RandomVoice(this)

@@ -24,7 +24,7 @@ val jacksonModuleKotlinVersion = "2.13.3"
 
 dependencies {
     // tts-core
-    implementation("com.github.Whya5448:tts-core:1.0.0")
+    implementation("com.github.Whya5448:tts-core:13bee5a216")
 
     // jackson
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
@@ -44,6 +44,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:$slf4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-core:$log4jVersion")
     testImplementation("org.apache.logging.log4j:log4j-slf4j-impl:$log4jVersion")
+
 
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
@@ -69,6 +70,10 @@ tasks.withType<KotlinCompile> {
             into(compileJava.destinationDirectory)
         }
     }
+}
+
+tasks.withType<Test> {
+    systemProperty("feign.client.config.default.loggerLevel", "FULL")
 }
 
 tasks.withType<Jar> {

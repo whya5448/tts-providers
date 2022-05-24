@@ -43,4 +43,20 @@ internal class KakaoTTSServiceTest {
             assertEquals("401 HTTP/1.1 401 Unauthorized", synthesize.errorMessage.lines()[0])
         }
     }
+
+    @Test
+    fun getId() {
+        assertEquals("kakao", KakaoTTSService("_").getId())
+    }
+
+    @Test
+    fun getFriendlyName() {
+        assertEquals("카카오", KakaoTTSService("_").getFriendlyName())
+    }
+
+    @Test
+    fun getVoices() {
+        val voices = KakaoTTSService("_").getVoices()
+        assertTrue(KakaoVoice.values().asList().containsAll(voices))
+    }
 }

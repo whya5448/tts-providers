@@ -5,10 +5,10 @@ import feign.Feign
 import feign.jackson.JacksonDecoder
 import feign.jackson.JacksonEncoder
 import feign.slf4j.Slf4jLogger
-import org.metalscraps.discord.bot.tts.core.AudioFormat
-import org.metalscraps.discord.bot.tts.core.Response
-import org.metalscraps.discord.bot.tts.core.TTSProvider
-import org.metalscraps.discord.bot.tts.core.Voice
+import org.metalscraps.discord.tts.core.AudioFormat
+import org.metalscraps.discord.tts.core.Response
+import org.metalscraps.discord.tts.core.TTSProvider
+import org.metalscraps.discord.tts.core.Voice
 import org.metalscraps.discord.tts.providers.getProperty
 import java.util.*
 

@@ -1,6 +1,6 @@
 package org.metalscraps.discord.tts.providers.random
 
-import org.metalscraps.discord.bot.tts.core.Voice
+import org.metalscraps.discord.tts.core.Voice
 
 class RandomVoice(private val proxy: RandomTTSService) : Voice {
     override fun getId(): String {

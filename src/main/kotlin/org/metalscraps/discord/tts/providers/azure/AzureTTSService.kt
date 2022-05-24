@@ -4,10 +4,10 @@ import feign.Feign
 import feign.jaxb.JAXBContextFactory
 import feign.jaxb.JAXBEncoder
 import feign.slf4j.Slf4jLogger
-import org.metalscraps.discord.bot.tts.core.AudioFormat
-import org.metalscraps.discord.bot.tts.core.Response
-import org.metalscraps.discord.bot.tts.core.TTSProvider
-import org.metalscraps.discord.bot.tts.core.Voice
+import org.metalscraps.discord.tts.core.AudioFormat
+import org.metalscraps.discord.tts.core.Response
+import org.metalscraps.discord.tts.core.TTSProvider
+import org.metalscraps.discord.tts.core.Voice
 import org.metalscraps.discord.tts.providers.SSMLRequest
 import org.metalscraps.discord.tts.providers.getProperty
 
