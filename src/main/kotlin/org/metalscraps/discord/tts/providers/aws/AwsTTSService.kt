@@ -8,7 +8,9 @@ import org.metalscraps.discord.tts.core.AudioFormat
 import org.metalscraps.discord.tts.core.Response
 import org.metalscraps.discord.tts.core.TTSProvider
 import org.metalscraps.discord.tts.core.Voice
+import org.metalscraps.discord.tts.providers.createResponseError
 import org.metalscraps.discord.tts.providers.getProperty
+import org.slf4j.LoggerFactory
 
 class AwsTTSService(
     accessKeyId: String? = getProperty(AwsConst.KEY_PROPERTY_NAME),
@@ -16,6 +18,7 @@ class AwsTTSService(
 ) : TTSProvider {
     companion object {
         internal const val ID: String = "aws"
+        private val logger = LoggerFactory.getLogger(this::class.java)
     }
 
     private val client: AwsClient
@@ -50,13 +53,13 @@ class AwsTTSService(
         val status = response.status()
 
         if (status != 200) {
-            return Response.error("$status $response")
+            return createResponseError(response)
         }
 
         val responseBody: ByteArray = try {
             response.body().asInputStream().readBytes()
         } catch (e: Exception) {
-            return Response.error("$e")
+            return createResponseError(response, e.message.toString(), e.stackTraceToString())
         }
 
         return Response.data(AudioFormat.OGG, responseBody)

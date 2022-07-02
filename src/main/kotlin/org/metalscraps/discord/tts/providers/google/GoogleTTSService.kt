@@ -9,7 +9,9 @@ import org.metalscraps.discord.tts.core.AudioFormat
 import org.metalscraps.discord.tts.core.Response
 import org.metalscraps.discord.tts.core.TTSProvider
 import org.metalscraps.discord.tts.core.Voice
+import org.metalscraps.discord.tts.providers.createResponseError
 import org.metalscraps.discord.tts.providers.getProperty
+import org.slf4j.LoggerFactory
 import java.util.*
 
 class GoogleTTSService(
@@ -17,6 +19,7 @@ class GoogleTTSService(
 ) : TTSProvider {
     companion object {
         internal const val ID: String = "google"
+        private val logger = LoggerFactory.getLogger(this::class.java)
     }
 
     private val client: GoogleClient
@@ -47,18 +50,23 @@ class GoogleTTSService(
         val status = response.status()
 
         if (status != 200) {
-            return Response.error("$status $response")
+            return createResponseError(response)
         }
 
         val responseJson = response.body().asInputStream().readAllBytes().decodeToString()
-        jacksonObjectMapper().readValue(responseJson, GoogleResponse::class.java).audioContent.run {
-            if (!isNullOrBlank()) return Response.data(
+
+        val googleResponse = jacksonObjectMapper().readValue(responseJson, GoogleResponse::class.java)
+
+        if (googleResponse.audioContent.isNullOrBlank()) {
+            return createResponseError(response, "$googleResponse")
+        }
+
+        return googleResponse.audioContent.run {
+            Response.data(
                 AudioFormat.OGG,
                 Base64.getDecoder().decode(this)
             )
         }
-
-        return Response.error("$status $response")
     }
 
     override fun getVoices(): List<Voice> {

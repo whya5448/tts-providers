@@ -1,44 +1,44 @@
-package org.metalscraps.discord.tts.providers.kakao
+package org.metalscraps.discord.tts.providers.azure
 
 import com.github.stefanbirkner.systemlambda.SystemLambda.withEnvironmentVariable
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
-import org.metalscraps.discord.tts.providers.kakao.KakaoConst.KEY_PROPERTY_NAME
+import org.metalscraps.discord.tts.providers.azure.AzureConst.KEY_PROPERTY_NAME
 import org.mockito.junit.jupiter.MockitoExtension
 import kotlin.test.assertEquals
 
 @ExtendWith(MockitoExtension::class)
-internal class KakaoTTSServiceTest {
+internal class AzureTTSServiceTest {
 
     @Test
     fun synthesize() {
-        assertThrows<IllegalArgumentException> { KakaoTTSService() }
+        assertThrows<IllegalArgumentException> { AzureTTSService() }
 
         let {
-            withEnvironmentVariable(KEY_PROPERTY_NAME, "123").execute { KakaoTTSService() }
-            assertThrows<IllegalArgumentException> { KakaoTTSService() }
+            withEnvironmentVariable(KEY_PROPERTY_NAME, "123").execute { AzureTTSService() }
+            assertThrows<IllegalArgumentException> { AzureTTSService() }
         }
 
         let {
             val properties = System.getProperties()
             properties.setProperty(KEY_PROPERTY_NAME, "123")
-            KakaoTTSService()
+            AzureTTSService()
             properties.remove(KEY_PROPERTY_NAME)
-            assertThrows<IllegalArgumentException> { KakaoTTSService() }
+            assertThrows<IllegalArgumentException> { AzureTTSService() }
         }
 
         let {
-            val kakaoTTSService = KakaoTTSService("123")
-            val synthesize = kakaoTTSService.synthesize(".")
+            val azureTTSService = AzureTTSService("_")
+            val synthesize = azureTTSService.synthesize("Hello World!")
             assertTrue(synthesize.error)
             assertEquals("HTTP/1.1 401 Unauthorized", synthesize.errorMessage.lines()[0])
         }
 
         let {
-            val kakaoTTSService = KakaoTTSService("123")
-            val synthesize = kakaoTTSService.synthesize("", ".")
+            val azureTTSService = AzureTTSService("_")
+            val synthesize = azureTTSService.synthesize("", "Hello World!")
             assertTrue(synthesize.error)
             assertEquals("HTTP/1.1 401 Unauthorized", synthesize.errorMessage.lines()[0])
         }
@@ -46,17 +46,17 @@ internal class KakaoTTSServiceTest {
 
     @Test
     fun getId() {
-        assertEquals("kakao", KakaoTTSService("_").getId())
+        assertEquals("azure", AzureTTSService("_").getId())
     }
 
     @Test
     fun getFriendlyName() {
-        assertEquals("카카오", KakaoTTSService("_").getFriendlyName())
+        assertEquals("마이크로소프트", AzureTTSService("_").getFriendlyName())
     }
 
     @Test
     fun getVoices() {
-        val voices = KakaoTTSService("_").getVoices()
-        assertTrue(KakaoVoice.values().asList().containsAll(voices))
+        val voices = AzureTTSService("_").getVoices()
+        assertTrue(AzureVoice.values().asList().containsAll(voices))
     }
 }

@@ -9,19 +9,16 @@ import org.metalscraps.discord.tts.core.Response
 import org.metalscraps.discord.tts.core.TTSProvider
 import org.metalscraps.discord.tts.core.Voice
 import org.metalscraps.discord.tts.providers.SSMLRequest
+import org.metalscraps.discord.tts.providers.createResponseError
 import org.metalscraps.discord.tts.providers.getProperty
+import org.slf4j.LoggerFactory
 
 class KakaoTTSService(
     appKey: String? = getProperty(KakaoConst.KEY_PROPERTY_NAME)
 ) : TTSProvider {
     companion object {
         internal const val ID: String = "kakao"
-        @JvmStatic
-        fun main(args: Array<String>) {
-            val kakaoTTSService = KakaoTTSService()
-            val synthesize = kakaoTTSService.synthesize(kakaoTTSService.getVoices().random().getId(), ".")
-            println(synthesize)
-        }
+        private val logger = LoggerFactory.getLogger(this::class.java)
     }
 
     private val client: KakaoClient
@@ -60,13 +57,13 @@ class KakaoTTSService(
         }
 
         if (status != 200) {
-            return Response.error("$status $response")
+            return createResponseError(response)
         }
 
         val responseBody: ByteArray = try {
             response.body().asInputStream().readBytes()
         } catch (e: Exception) {
-            return Response.error("$e")
+            return createResponseError(response, e.message.toString(), e.stackTraceToString())
         }
 
         return Response.data(AudioFormat.MP3, responseBody)

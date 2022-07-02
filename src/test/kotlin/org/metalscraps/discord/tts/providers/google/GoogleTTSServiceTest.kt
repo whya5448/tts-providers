@@ -33,14 +33,14 @@ internal class GoogleTTSServiceTest {
             val googleTTSService = GoogleTTSService("_")
             val synthesize = googleTTSService.synthesize("Hello World!")
             assertTrue(synthesize.error)
-            assertEquals("400 HTTP/1.1 400 Bad Request", synthesize.errorMessage.lines()[0])
+            assertEquals("HTTP/1.1 400 Bad Request", synthesize.errorMessage.lines()[0])
         }
 
         let {
             val googleTTSService = GoogleTTSService("_")
             val synthesize = googleTTSService.synthesize("", "Hello World!")
             assertTrue(synthesize.error)
-            assertEquals("400 HTTP/1.1 400 Bad Request", synthesize.errorMessage.lines()[0])
+            assertEquals("HTTP/1.1 400 Bad Request", synthesize.errorMessage.lines()[0])
         }
     }
 
