@@ -16,7 +16,7 @@ repositories {
 
 val feignVersion = "11.8"
 val slf4jVersion = "2.0.0"
-val log4jVersion = "2.17.2"
+val log4jVersion = "2.18.0"
 val jacksonVersion = "2.13.2.3"
 val jacksonModuleKotlinVersion = "2.13.3"
 
