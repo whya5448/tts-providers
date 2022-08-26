@@ -14,7 +14,7 @@ repositories {
     maven("https://jitpack.io")
 }
 
-val feignVersion = "11.8"
+val feignVersion = "11.9.1"
 val slf4jVersion = "2.0.0"
 val log4jVersion = "2.17.2"
 val jacksonVersion = "2.13.2.3"
