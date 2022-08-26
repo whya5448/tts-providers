@@ -45,7 +45,7 @@ dependencies {
 
 
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
     testImplementation("org.mockito:mockito-junit-jupiter:4.5.1")
     testImplementation("org.mockito:mockito-inline:4.5.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
