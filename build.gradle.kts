@@ -3,22 +3,22 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     `java-library`
     `maven-publish`
-    kotlin("jvm") version "1.6.20"
+    kotlin("jvm") version "1.7.20"
 }
 
 group = "org.metalscraps.tts"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
     maven("https://jitpack.io")
 }
 
-val feignVersion = "11.8"
-val slf4jVersion = "1.7.36"
-val log4jVersion = "2.17.2"
-val jacksonVersion = "2.13.2.3"
-val jacksonModuleKotlinVersion = "2.13.3"
+val feignVersion = "11.10"
+val slf4jVersion = "2.0.3"
+val log4jVersion = "2.19.0"
+val jacksonVersion = "2.13.4.2"
+val jacksonModuleKotlinVersion = "2.13.4"
 
 dependencies {
     // tts-core
@@ -45,9 +45,9 @@ dependencies {
 
 
     testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:4.5.1")
-    testImplementation("org.mockito:mockito-inline:4.5.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:4.8.0")
+    testImplementation("org.mockito:mockito-inline:4.8.0")
     testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
 }
@@ -55,10 +55,6 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
-
-val compileKotlin: KotlinCompile by tasks
-val compileJava: JavaCompile by tasks
-compileJava.destinationDirectory.set(compileKotlin.destinationDirectory)
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "17"
